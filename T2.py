@@ -56,7 +56,7 @@ def BubbleSort(A):
 
 def SortSelection(A,k):
   A_ord = BubbleSort(A)
-  return A_ord[k]
+  return A_ord[k-1]
 
 tamanhos = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
 media_tempo_bubble = []
@@ -67,19 +67,25 @@ for tamanho in tamanhos:
     tempos_linear = []
     for t in range(10):
         instance_bubble = list(np.random.randint(1, 100000, tamanho))
-        instance_linear = list(np.random.randint(1, 100000, tamanho))
+        instance_linear = list(np.copy(instance_bubble))
 
         # bubble sort selection
         start = time.time()
-        mediana = SortSelection(instance_bubble, tamanho//2)
+        mediana_bubble = SortSelection(instance_bubble, tamanho//2)
         end = time.time()
         tempos_bubble.append(end - start)
 
         #linear seletion
         start = time.time()
-        mediana = LinearSelection(instance_linear, tamanho//2)
+        mediana_linear = LinearSelection(instance_linear, tamanho//2)
         end = time.time()
         tempos_linear.append(end - start) 
+
+        if mediana_bubble != mediana_linear:
+            print("ERRO: medianas diferentes!")
+            print(mediana_bubble)
+            print(mediana_linear)
+
         print(t, tamanho)
         
     media_tempo_bubble.append(np.mean(tempos_bubble))
