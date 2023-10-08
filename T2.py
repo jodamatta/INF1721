@@ -66,17 +66,18 @@ for tamanho in tamanhos:
     tempos_bubble = []
     tempos_linear = []
     for t in range(10):
-        instance = list(np.random.randint(1, 100000, tamanho))
+        instance_bubble = list(np.random.randint(1, 100000, tamanho))
+        instance_linear = list(np.random.randint(1, 100000, tamanho))
 
         # bubble sort selection
         start = time.time()
-        mediana = SortSelection(instance, tamanho//2)
+        mediana = SortSelection(instance_bubble, tamanho//2)
         end = time.time()
         tempos_bubble.append(end - start)
 
         #linear seletion
         start = time.time()
-        mediana = LinearSelection(instance, tamanho//2)
+        mediana = LinearSelection(instance_linear, tamanho//2)
         end = time.time()
         tempos_linear.append(end - start) 
         print(t, tamanho)
@@ -90,5 +91,4 @@ ax = plt.gca()
 df_plot.plot(x='Tamanho', y='Media de tempo bubble', ax=ax, label='SortSelection')
 df_plot.plot(x='Tamanho', y='Media de Tempo Linear', ax=ax, label='LinearSelection')
 plt.ylabel('Tempo Medio')
-plt.legend()
 plt.show()
