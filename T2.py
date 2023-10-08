@@ -43,6 +43,9 @@ def MOM_algo(A,k):
         return MOM_algo(R, k - len(L) - len(M))
 
 def LinearSelection(A,k):
+    if k < 0 or k >= len(A):
+        print("Indice fora da lista.\n")
+        return
     return MOM_algo(A,k)
 
 def BubbleSort(A):
@@ -56,7 +59,7 @@ def BubbleSort(A):
 
 def SortSelection(A,k):
   A_ord = BubbleSort(A)
-  return A_ord[k-1]
+  return A_ord[k]
 
 tamanhos = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
 media_tempo_bubble = []
@@ -80,13 +83,6 @@ for tamanho in tamanhos:
         mediana_linear = LinearSelection(instance_linear, tamanho//2)
         end = time.time()
         tempos_linear.append(end - start) 
-
-        if mediana_bubble != mediana_linear:
-            print("ERRO: medianas diferentes!")
-            print(mediana_bubble)
-            print(mediana_linear)
-
-        print(t, tamanho)
         
     media_tempo_bubble.append(np.mean(tempos_bubble))
     media_tempo_linear.append(np.mean(tempos_linear))
